@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
@@ -59,8 +60,7 @@ fun TipCalculatorLayout() {
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
 
-    var textOfButton by remember { mutableStateOf("") } // 新しい状態
-
+    val keyboardController = LocalSoftwareKeyboardController.current // キーボードコントロー
 
     Column(
         modifier = Modifier
@@ -93,17 +93,12 @@ fun TipCalculatorLayout() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            // ボタンがクリックされたときにテキストを変更
-            textOfButton = "Tipの計算を行います"
+            // ボタンがクリックされたときにキーボードを出す
+            keyboardController?.show()
         }) {
             Text("Tip計算")
         }
 
-        Text(
-            text = textOfButton,
-            style = MaterialTheme.typography.bodyMedium, // 適切なスタイルを指定
-            modifier = Modifier.padding(top = 16.dp)
-        )
         Spacer(modifier = Modifier.height(150.dp))
     }
 }

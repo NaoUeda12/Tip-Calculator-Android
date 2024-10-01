@@ -28,6 +28,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -60,8 +62,8 @@ fun TipCalculatorLayout() {
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
 
-    val keyboardController = LocalSoftwareKeyboardController.current // キーボードコントロー
-
+    val keyboardController = LocalSoftwareKeyboardController.current // キーボードコントローラ
+    val focusRequester = remember { FocusRequester() }
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -83,6 +85,7 @@ fun TipCalculatorLayout() {
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
+                .focusRequester(focusRequester) // フォーカスリクエスターを追加
         )
         Text(
             text = stringResource(R.string.tip_amount, tip),
@@ -94,6 +97,7 @@ fun TipCalculatorLayout() {
 
         Button(onClick = {
             // ボタンがクリックされたときにキーボードを出す
+            focusRequester.requestFocus() // フォーカスを移動
             keyboardController?.show()
         }) {
             Text("Tip計算")

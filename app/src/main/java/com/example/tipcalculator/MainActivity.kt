@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -58,6 +59,9 @@ fun TipCalculatorLayout() {
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
 
+    var textOfButton by remember { mutableStateOf("") } // 新しい状態
+
+
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -86,7 +90,20 @@ fun TipCalculatorLayout() {
                 textDecoration = TextDecoration.Underline // 下線を引く
             )
         )
+        Spacer(modifier = Modifier.height(16.dp))
 
+        Button(onClick = {
+            // ボタンがクリックされたときにテキストを変更
+            textOfButton = "Tipの計算を行います"
+        }) {
+            Text("Tip計算")
+        }
+
+        Text(
+            text = textOfButton,
+            style = MaterialTheme.typography.bodyMedium, // 適切なスタイルを指定
+            modifier = Modifier.padding(top = 16.dp)
+        )
         Spacer(modifier = Modifier.height(150.dp))
     }
 }

@@ -1,6 +1,5 @@
 package com.example.tipcalculator
 
-import com.example.tipcalculator.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -37,6 +36,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tipcalculator.ui.theme.TipCalculatorTheme
+import com.example.tipcaltulator.R
 import java.text.NumberFormat
 
 
@@ -102,6 +102,8 @@ fun TipCalculatorLayout() {
         }) {
             Text("Tip計算")
         }
+        Button(onClick = {amountInput = ""}
+        ) { Text(text = "入力情報をクリア") }
 
         Spacer(modifier = Modifier.height(150.dp))
     }

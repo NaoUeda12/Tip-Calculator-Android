@@ -107,7 +107,6 @@ fun TipCalculatorLayout() {
         }) {
             Text("キーボードを表示する")
         }
-
         Spacer(modifier = Modifier.height(45.dp))
 
         Row(
@@ -122,25 +121,23 @@ fun TipCalculatorLayout() {
         Spacer(modifier = Modifier.height(150.dp)) // 他のUI要素との間隔を確保
     }
 }
-
 @Composable
 fun RightArrowImage() {
     Image(
-        painter = painterResource(id = R.drawable.round_arrow), // R.drawable.leftarrow に置き換える
-        contentDescription = "Left Arrow", // 画像の説明
+        painter = painterResource(id = R.drawable.round_arrow),
+        contentDescription = "右矢印",
         modifier = Modifier.size(48.dp),// 画像サイズを指定
-
-
     )
 }
 @Composable
 fun LeftArrowImage(modifier: Modifier = Modifier, rotate: Float = 0f) {
     Image(
-        painter = painterResource(id = R.drawable.round_arrow), // 画像リソース（右向き矢印）
-        contentDescription = "Arrow", // 画像の説明
+        painter = painterResource(id = R.drawable.round_arrow),
+        contentDescription = "左矢印",
         modifier = modifier
             .size(48.dp) // 画像サイズを指定
-            .graphicsLayer(rotationZ = rotate)) // 回転を適用
+            .graphicsLayer(rotationZ = rotate)
+    ) // 回転を適用
 }
 
 @Composable
@@ -171,4 +168,3 @@ fun TipCalculatorLayoutPreview() {
         TipCalculatorLayout()
     }
 }
-

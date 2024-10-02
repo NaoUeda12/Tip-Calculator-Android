@@ -1,18 +1,21 @@
 package com.example.tipcalculator
 
-import com.example.tipcalculator.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -30,7 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
@@ -100,11 +105,42 @@ fun TipCalculatorLayout() {
             focusRequester.requestFocus() // フォーカスを移動
             keyboardController?.show()
         }) {
-            Text("Tip計算")
+            Text("キーボードを表示する")
         }
 
-        Spacer(modifier = Modifier.height(150.dp))
+        Spacer(modifier = Modifier.height(45.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+        ) {
+            LeftArrowImage(rotate = 180f) // 左向き矢印（180度回転）
+            Spacer(modifier = Modifier.width(16.dp)) // スペースを追加
+            RightArrowImage() // 右向き
+        }
+
+        Spacer(modifier = Modifier.height(150.dp)) // 他のUI要素との間隔を確保
     }
+}
+
+@Composable
+fun RightArrowImage() {
+    Image(
+        painter = painterResource(id = R.drawable.round_arrow), // R.drawable.leftarrow に置き換える
+        contentDescription = "Left Arrow", // 画像の説明
+        modifier = Modifier.size(48.dp),// 画像サイズを指定
+
+
+    )
+}
+@Composable
+fun LeftArrowImage(modifier: Modifier = Modifier, rotate: Float = 0f) {
+    Image(
+        painter = painterResource(id = R.drawable.round_arrow), // 画像リソース（右向き矢印）
+        contentDescription = "Arrow", // 画像の説明
+        modifier = modifier
+            .size(48.dp) // 画像サイズを指定
+            .graphicsLayer(rotationZ = rotate)) // 回転を適用
 }
 
 @Composable
@@ -135,3 +171,4 @@ fun TipCalculatorLayoutPreview() {
         TipCalculatorLayout()
     }
 }
+

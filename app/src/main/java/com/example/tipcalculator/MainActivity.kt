@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tipcalculator.ui.theme.TipCalculatorTheme
+//import com.example.tipcaltulator.R
 import java.text.NumberFormat
 
 
@@ -113,7 +114,7 @@ fun TipCalculatorLayout() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
         ) {
-            LeftArrowImage(rotate = 180f) // 左向き矢印（180度回転）
+//            LeftArrowImage(rotate = 180f) // 左向き矢印（180度回転）
             Spacer(modifier = Modifier.width(16.dp)) // スペースを追加
             RightArrowImage() // 右向き
         }
@@ -129,16 +130,16 @@ fun RightArrowImage() {
         modifier = Modifier.size(48.dp),// 画像サイズを指定
     )
 }
-@Composable
-fun LeftArrowImage(modifier: Modifier = Modifier, rotate: Float = 0f) {
-    Image(
-        painter = painterResource(id = R.drawable.round_arrow),
-        contentDescription = "左矢印",
-        modifier = modifier
-            .size(48.dp) // 画像サイズを指定
-            .graphicsLayer(rotationZ = rotate)
-    ) // 回転を適用
-}
+//@Composable
+//fun LeftArrowImage(modifier: Modifier = Modifier, rotate: Float = 0f) {
+//    Image(
+//        painter = painterResource(id = R.drawable.round_arrow),
+//        contentDescription = "左矢印",
+//        modifier = modifier
+//            .size(48.dp) // 画像サイズを指定
+//            .graphicsLayer(rotationZ = rotate)
+//    ) // 回転を適用
+//}
 
 @Composable
 fun EditNumberField(

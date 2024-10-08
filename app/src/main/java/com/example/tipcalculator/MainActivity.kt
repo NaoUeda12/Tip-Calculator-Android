@@ -1,6 +1,5 @@
 package com.example.tipcalculator
 
-import com.example.tipcalculator.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,11 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tipcalculator.ui.theme.TipCalculatorTheme
+import com.example.tipcaltulator.R
 import java.text.NumberFormat
 
 
@@ -57,6 +62,8 @@ fun TipCalculatorLayout() {
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
 
+    val keyboardController = LocalSoftwareKeyboardController.current // キーボードコントローラ
+    val focusRequester = remember { FocusRequester() }
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -78,11 +85,24 @@ fun TipCalculatorLayout() {
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
+                .focusRequester(focusRequester) // フォーカスリクエスターを追加
         )
         Text(
             text = stringResource(R.string.tip_amount, tip),
-            style = MaterialTheme.typography.displaySmall
+            style = MaterialTheme.typography.displaySmall.copy(
+                textDecoration = TextDecoration.Underline // 下線を引く
+            )
         )
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            // ボタンがクリックされたときにキーボードを出す
+            focusRequester.requestFocus() // フォーカスを移動
+            keyboardController?.show()
+        }) {
+            Text("Tip計算")
+        }
+
         Spacer(modifier = Modifier.height(150.dp))
     }
 }
